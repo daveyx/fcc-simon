@@ -3,6 +3,7 @@
 import React, {Component} from 'react';
 import {Grid, Row, Col} from 'react-bootstrap';
 import '../../css/styles.css';
+import SimonGame from './simonGame'
 
 export default class App extends Component {
   constructor(props) {
@@ -29,12 +30,8 @@ export default class App extends Component {
             </Col>
           </Row>
           <Row>
-            <Col xs={12} sm={8} smOffset={2} md={4} mdOffset={4}>
-              <ul className='pie'>
-  <li className='slice'>
-    <div className='slice-contents'></div>
-  </li>
-</ul>
+            <Col xs={8} xsOffset={2}>
+              <SimonGame />
             </Col>
           </Row>
           <Row>
