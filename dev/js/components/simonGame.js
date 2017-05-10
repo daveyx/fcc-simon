@@ -6,6 +6,7 @@ import {Row, Col} from 'react-bootstrap';
 import '../../css/styles.css';
 import Control from './control';
 import Pad from './pad';
+import sleep from '../sleep'
 
 export default class SimonGame extends Component {
   constructor(props) {
@@ -19,7 +20,6 @@ export default class SimonGame extends Component {
     this.startGame = this.startGame.bind(this);
     this.stopGame = this.stopGame.bind(this);
     this.restartGame = this.restartGame.bind(this);
-    this.sleep = this.sleep.bind(this);
   }
 
   async startGame() {
@@ -28,11 +28,11 @@ export default class SimonGame extends Component {
     });
 
     this.refs.pad1.play();
-    await this.sleep(500);
+    await sleep(500);
     this.refs.pad2.play();
-    await this.sleep(500);
+    await sleep(500);
     this.refs.pad3.play();
-    await this.sleep(500);
+    await sleep(500);
     this.refs.pad4.play();
   }
 
@@ -44,10 +44,6 @@ export default class SimonGame extends Component {
 
   restartGame() {
 
-  }
-
-  sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   toggleStrictMode() {

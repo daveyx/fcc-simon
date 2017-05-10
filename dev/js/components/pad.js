@@ -3,15 +3,11 @@
 import React, {Component} from 'react';
 import ReactDOM from "react-dom";
 import '../../css/styles.css';
+import sleep from '../sleep'
 
 export default class Pad extends Component {
   constructor(props) {
     super();
-    this.play = this.play.bind(this);
-  }
-
-  sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   async play() {
@@ -19,7 +15,7 @@ export default class Pad extends Component {
     pad.style.opacity = 1;
     var audio = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound' + this.props.id + '.mp3');
     audio.play();
-    await this.sleep(300);
+    await sleep(300);
     pad.style.opacity = 0.5;
   }
 
