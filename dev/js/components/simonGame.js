@@ -5,6 +5,7 @@ import ReactDOM from "react-dom";
 import {Row, Col} from 'react-bootstrap';
 import '../../css/styles.css';
 import Control from './control';
+import Pad from './pad';
 
 export default class SimonGame extends Component {
   constructor(props) {
@@ -18,7 +19,6 @@ export default class SimonGame extends Component {
     this.startGame = this.startGame.bind(this);
     this.stopGame = this.stopGame.bind(this);
     this.restartGame = this.restartGame.bind(this);
-    this.play = this.play.bind(this);
     this.sleep = this.sleep.bind(this);
   }
 
@@ -27,13 +27,13 @@ export default class SimonGame extends Component {
       gameRunning: true
     });
 
-    this.play(1);
+    this.refs.pad1.play();
     await this.sleep(500);
-    this.play(2);
+    this.refs.pad2.play();
     await this.sleep(500);
-    this.play(3);
+    this.refs.pad3.play();
     await this.sleep(500);
-    this.play(4);
+    this.refs.pad4.play();
   }
 
   stopGame() {
@@ -48,15 +48,6 @@ export default class SimonGame extends Component {
 
   sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  async play(id) {
-    const pad = ReactDOM.findDOMNode(this.refs["pad" + id]);
-    pad.style.opacity = 1;
-    var audio = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound' + id + '.mp3');
-    audio.play();
-    await this.sleep(300);
-    pad.style.opacity = 0.5;
   }
 
   toggleStrictMode() {
@@ -77,10 +68,10 @@ export default class SimonGame extends Component {
         <Row>
           <Col xs={12}>
             <div className="simon">
-              <div className="pad red" ref="pad1"></div>
-              <div className="pad green" ref="pad2"></div>
-              <div className="pad yellow" ref="pad3"></div>
-              <div className="pad blue" ref="pad4"></div>
+              <Pad color="red" id="1" ref="pad1"></Pad>
+              <Pad color="green" id="2" ref="pad2"></Pad>
+              <Pad color="yellow" id="3" ref="pad3"></Pad>
+              <Pad color="blue" id="4" ref="pad4"></Pad>
               <div className="display" id="display">
                 {this.state.moves}
               </div>
