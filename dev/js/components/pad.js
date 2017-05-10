@@ -3,7 +3,7 @@
 import React, {Component} from 'react';
 import ReactDOM from "react-dom";
 import '../../css/styles.css';
-import sleep from '../sleep'
+import sleep from '../functions'
 
 export default class Pad extends Component {
   constructor(props) {

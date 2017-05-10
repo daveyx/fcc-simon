@@ -6,7 +6,7 @@ import {Row, Col} from 'react-bootstrap';
 import '../../css/styles.css';
 import Control from './control';
 import Pad from './pad';
-import sleep from '../sleep'
+import sleep from '../functions'
 
 export default class SimonGame extends Component {
   constructor(props) {
