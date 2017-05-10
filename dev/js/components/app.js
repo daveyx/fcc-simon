@@ -27,6 +27,9 @@ export default class App extends Component {
                 Simon Game<br />
                 <small>by <a href="http://www.daveyx.ga" target="_blank" title="daveyx">daveyx</a></small>
               </h1>
+              <h2 className="text-center">
+                Remember 20 moves to win!
+              </h2>
             </Col>
           </Row>
           <Row>

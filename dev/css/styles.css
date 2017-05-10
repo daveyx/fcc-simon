@@ -123,6 +123,9 @@ h1 {
   margin-bottom: 20px !important;
   line-height: 0.8 !important;
 }
+h2 {
+  font-size: 14px;
+}
 .wrapper {
   padding-top: 20px;
 }
