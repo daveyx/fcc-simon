@@ -6,7 +6,7 @@ import {Row, Col} from 'react-bootstrap';
 import '../../css/styles.css';
 import Control from './control';
 import Pad from './pad';
-import sleep from '../functions'
+import {sleep, random} from '../functions'
 
 export default class SimonGame extends Component {
   constructor(props) {
@@ -14,26 +14,34 @@ export default class SimonGame extends Component {
     this.state = {
       strictMode: false,
       gameRunning: false,
-      moves: []
+      moves: [2]
     };
     this.toggleStrictMode = this.toggleStrictMode.bind(this);
     this.startGame = this.startGame.bind(this);
     this.stopGame = this.stopGame.bind(this);
     this.restartGame = this.restartGame.bind(this);
+    this.computerMove = this.computerMove.bind(this);
   }
 
-  async startGame() {
+  computerMove() {
+    const moves = this.state.moves;
+    moves.push(random());
+    this.setState({
+      moves: moves
+    }, async () => {
+      for (var i = 0; i < this.state.moves.length; i++) {
+        const pad = this.state.moves[i];
+         this.refs["pad" + pad].play();
+         await sleep(1000);
+      }
+    });
+  }
+
+  startGame() {
     this.setState({
       gameRunning: true
     });
-
-    this.refs.pad1.play();
-    await sleep(500);
-    this.refs.pad2.play();
-    await sleep(500);
-    this.refs.pad3.play();
-    await sleep(500);
-    this.refs.pad4.play();
+    this.computerMove();
   }
 
   stopGame() {
