@@ -8,6 +8,7 @@ import {sleep} from '../functions'
 export default class Pad extends Component {
   constructor(props) {
     super();
+    this.clickHandler = this.clickHandler.bind(this);
   }
 
   async play() {
@@ -19,9 +20,18 @@ export default class Pad extends Component {
     pad.style.opacity = 0.5;
   }
 
+  clickHandler() {
+    this.props.padClicked(this.props.id);
+    this.play();
+  }
+
   render() {
     return(
-      <div className={`pad ${this.props.color}`} ref={`pad${this.props.id}`}></div>
+      <div
+        className={`pad ${this.props.color}`}
+        ref={`pad${this.props.id}`}
+        onClick={this.props.gameRunning === true && this.props.computerRunning === false ? this.clickHandler : null}
+      />
     );
   }
 }
