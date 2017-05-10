@@ -24,5 +24,4 @@ export default class Pad extends Component {
       <div className={`pad ${this.props.color}`} ref={`pad${this.props.id}`}></div>
     );
   }
-
 }

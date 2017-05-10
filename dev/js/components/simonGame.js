@@ -14,7 +14,7 @@ export default class SimonGame extends Component {
     this.state = {
       strictMode: false,
       gameRunning: false,
-      moves: 0
+      moves: []
     };
     this.toggleStrictMode = this.toggleStrictMode.bind(this);
     this.startGame = this.startGame.bind(this);
@@ -69,7 +69,7 @@ export default class SimonGame extends Component {
               <Pad color="yellow" id="3" ref="pad3"></Pad>
               <Pad color="blue" id="4" ref="pad4"></Pad>
               <div className="display" id="display">
-                {this.state.moves}
+                {this.state.moves.length}
               </div>
             </div>
           </Col>
