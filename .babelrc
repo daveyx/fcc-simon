@@ -1,4 +1,9 @@
 {
   "presets" : ["es2015", "react"],
-  "plugins": ["transform-async-to-generator"]
+  "plugins": ["babel-plugin-transform-async-to-generator",
+    ["transform-runtime", {
+      "polyfill": false,
+      "regenerator": true
+    }]
+  ]
 }
