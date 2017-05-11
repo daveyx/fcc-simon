@@ -115,7 +115,9 @@ export default class SimonGame extends Component {
 
   stopGame() {
     this.setState({
-      gameRunning: false
+      gameRunning: false,
+      moves: [],
+      userMoves: []
     });
   }
 
