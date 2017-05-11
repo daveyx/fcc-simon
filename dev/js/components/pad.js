@@ -9,7 +9,7 @@ export default class Pad extends Component {
   constructor(props) {
     super();
     this.state = {
-      audio: new Audio('mp3/simonSound' + props.id + '.mp3')
+      audio: new Audio('./mp3/simonSound' + props.id + '.mp3')
     }
     this.clickHandler = this.clickHandler.bind(this);
   }
