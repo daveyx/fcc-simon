@@ -6,7 +6,10 @@ import {Row, Col} from 'react-bootstrap';
 import '../../css/styles.css';
 import Control from './control';
 import Pad from './pad';
-import {sleep, random} from '../functions'
+import UserInfo from './userInfo';
+import {sleep, random} from '../functions';
+
+const movesToWin = 3;
 
 export default class SimonGame extends Component {
   constructor(props) {
@@ -16,7 +19,10 @@ export default class SimonGame extends Component {
       gameRunning: false,
       computerRunning: false,
       moves: [],
-      userMoves: []
+      userMoves: [],
+      showModal: false,
+      modalTitle: "",
+      modalMessage: ""
     };
     this.toggleStrictMode = this.toggleStrictMode.bind(this);
     this.startGame = this.startGame.bind(this);
@@ -24,11 +30,14 @@ export default class SimonGame extends Component {
     this.restartGame = this.restartGame.bind(this);
     this.computerMove = this.computerMove.bind(this);
     this.padClicked = this.padClicked.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
-  computerMove() {
+  computerMove(addMove) {
     const moves = this.state.moves;
-    moves.push(random());
+    if (addMove) {
+      moves.push(random());
+    }
     this.setState({
       computerRunning: true,
       moves: moves,
@@ -46,14 +55,13 @@ export default class SimonGame extends Component {
   }
 
   padClicked(id) {
-    console.log("padclicked", id);
     const moves = this.state.userMoves;
     moves.push(Number(id));
     let correct = true;
     for (let i = 0; i < moves.length; i++) {
-      console.log("checking", moves[i], this.state.moves[i])
       if (moves[i] !== this.state.moves[i]) {
         correct = false;
+        break;
       }
     }
 
@@ -62,13 +70,39 @@ export default class SimonGame extends Component {
         userMoves: moves
       }, async () => {
         if (this.state.moves.length === this.state.userMoves.length) {
-          await sleep(1000);
-          this.computerMove();
+          if (this.state.moves.length === movesToWin) {
+            // user won
+            let modalMessage = "Your brain has an incredible capacity.";
+            let modalTitle = "You won the game!";
+            this.setState({
+              showModal: true,
+              modalTitle: modalTitle,
+              modalMessage: modalMessage,
+              gameRunning: false,
+              moves: [],
+              userMoves: []
+            });
+            await sleep(300);
+          } else {
+            await sleep(1000);
+            this.computerMove(true);
+          }
         }}
       );
     } else {
       // user failed
-      console.log("-------> failed");
+      let modalMessage = "";
+      let modalTitle = "You failed!";
+      if (this.state.strictMode) {
+        modalMessage = "Strict mode enabled, game finished!"
+      } else {
+        modalMessage = "Strict mode disabled, you can try again!"
+      }
+      this.setState({
+        showModal: true,
+        modalTitle: modalTitle,
+        modalMessage: modalMessage
+      });
     }
   }
 
@@ -76,7 +110,7 @@ export default class SimonGame extends Component {
     this.setState({
       gameRunning: true
     });
-    this.computerMove();
+    this.computerMove(true);
   }
 
   stopGame() {
@@ -101,11 +135,24 @@ export default class SimonGame extends Component {
     }
   }
 
+  closeModal() {
+    const nextStep = this.state.strictMode !== true ? this.computerMove(false) : null;
+    this.setState({
+      showModal: false
+    }, nextStep);
+  }
+
   render() {
     return(
       <div>
         <Row>
           <Col xs={12}>
+            <UserInfo
+              showModal={this.state.showModal}
+              modalTitle={this.state.modalTitle}
+              modalMessage={this.state.modalMessage}
+              closeModal={this.closeModal}
+            />
             <div className="simon">
               <Pad
                 color="red"
