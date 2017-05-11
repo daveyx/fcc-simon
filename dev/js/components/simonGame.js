@@ -9,7 +9,7 @@ import Pad from './pad';
 import UserInfo from './userInfo';
 import {sleep, random} from '../functions';
 
-const movesToWin = 5;
+const movesToWin = 20;
 
 export default class SimonGame extends Component {
   constructor(props) {
