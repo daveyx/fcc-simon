@@ -9,7 +9,7 @@ import Pad from './pad';
 import UserInfo from './userInfo';
 import {sleep, random} from '../functions';
 
-const movesToWin = 3;
+const movesToWin = 5;
 
 export default class SimonGame extends Component {
   constructor(props) {
@@ -109,8 +109,7 @@ export default class SimonGame extends Component {
   startGame() {
     this.setState({
       gameRunning: true
-    });
-    this.computerMove(true);
+    }, () => this.computerMove(true));
   }
 
   stopGame() {
@@ -122,7 +121,9 @@ export default class SimonGame extends Component {
   }
 
   restartGame() {
-
+    this.setState({
+      moves: []
+    }, () => this.computerMove(true));
   }
 
   toggleStrictMode() {
