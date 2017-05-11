@@ -139,10 +139,10 @@ export default class SimonGame extends Component {
   }
 
   closeModal() {
-    const nextStep = this.state.strictMode !== true ? this.computerMove(false) : null;
+    const nextStep = this.state.strictMode !== true ? this.computerMove(false) : this.stopGame();
     this.setState({
       showModal: false
-    }, nextStep);
+    }, () => nextStep);
   }
 
   render() {
