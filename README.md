@@ -6,16 +6,5 @@
                            |___/      
     -----------------------------------
 
-# simon game with react
-https://www.freecodecamp.com/challenges/build-a-simon-game
-
-### live demo
-https://daveyx.github.io/fcc-simon
-
-### install
-1. git clone https://github.com/daveyx/fcc-simon
-2. cd fcc-simon
-3. npm install
-4. npm start
-5. call http://localhost:3000 in your browser
-6. enjoy...
+    # END OF LIFE
+    This repo is not used anymore and has moved to https://github.com/daveyx/freecodecamp/tree/master/src/frontend/10_simongame
